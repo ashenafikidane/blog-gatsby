@@ -41,7 +41,9 @@ exports.createPages = async ({ graphql, actions }) => {
     if (slug) {
       createPage({
         path: `/posts/${slug}`,
-        component: path.resolve("./src/templates/post.tsx"),
+        component: `${path.resolve(
+          "./src/templates/post.tsx"
+        )}?__contentFilePath=${post.internal.contentFilePath}`,
         context: {
           id: post.id,
           slug: slug,

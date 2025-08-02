@@ -15,15 +15,15 @@ interface PostTemplateData {
       summary: string;
       tags: string[];
     };
-    body: string;
   };
 }
 
 const PostTemplate: React.FC<PageProps<PostTemplateData>> = ({
   data,
   location,
+  children,
 }) => {
-  const { frontmatter, body } = data.mdx;
+  const { frontmatter } = data.mdx;
 
   // Custom components for MDX
   const components = {
@@ -151,9 +151,7 @@ const PostTemplate: React.FC<PageProps<PostTemplateData>> = ({
           transition={{ duration: 0.6, delay: 0.2 }}
           className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-ul:text-gray-700 prose-ol:text-gray-700 prose-li:text-gray-700 prose-blockquote:text-gray-600 prose-code:text-gray-800 prose-pre:bg-gray-900 prose-pre:text-gray-100"
         >
-          <MDXProvider components={components}>
-            <div dangerouslySetInnerHTML={{ __html: body }} />
-          </MDXProvider>
+          <MDXProvider components={components}>{children}</MDXProvider>
         </motion.div>
 
         {/* Footer */}
@@ -209,7 +207,6 @@ export const query = graphql`
         summary
         tags
       }
-      body
     }
   }
 `;
