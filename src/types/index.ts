@@ -15,7 +15,7 @@ export interface Author {
   bio: string;
   image: string;
   social: {
-    twitter?: string;
+    x?: string;
     github?: string;
     linkedin?: string;
   };
@@ -58,4 +58,4 @@ export interface IndexPageProps extends PageProps {
       }>;
     };
   };
-} 
+}
