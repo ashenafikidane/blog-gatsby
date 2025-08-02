@@ -4,7 +4,7 @@ import { MDXProvider } from "@mdx-js/react";
 import { motion } from "framer-motion";
 import Layout from "../components/Layout";
 import SEO from "../components/SEO";
-import { formatDate } from "../utils/dateUtils";
+import { formatDate } from "../utils/utils";
 
 interface PostTemplateData {
   mdx: {

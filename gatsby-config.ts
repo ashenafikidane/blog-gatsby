@@ -2,7 +2,7 @@ import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `Gatsby Blog`,
+    title: `Gatsby Blog CMS`,
     description: `A professional blog CMS built with Gatsby, React, and Redux Toolkit`,
     author: `@gatsby-blog`,
     siteUrl: `https://www.yourdomain.tld`,
@@ -36,7 +36,7 @@ const config: GatsbyConfig = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "posts",
-        path: "./src/content/posts/",
+        path: "./src/data/posts/",
       },
       __key: "posts",
     },
@@ -44,7 +44,7 @@ const config: GatsbyConfig = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "authors",
-        path: "./src/content/authors/",
+        path: "./src/data/authors/",
       },
       __key: "authors",
     },

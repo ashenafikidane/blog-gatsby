@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { motion } from 'framer-motion';
-import { RootState } from '../state/store';
-import { updateField, savePost, clearForm, loadPosts, deletePost } from '../state/blogFormSlice';
-import { generateId, generateSlug } from '../utils/dateUtils';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { motion } from "framer-motion";
+import { RootState } from "../state/store";
+import {
+  updateField,
+  savePost,
+  clearForm,
+  loadPosts,
+  deletePost,
+} from "../state/blogFormSlice";
+import { generateId, generateSlug } from "../utils/utils";
 
 const AdminForm: React.FC = () => {
   const dispatch = useDispatch();
-  const { currentPost, posts, isEditing } = useSelector((state: RootState) => state.blogForm);
+  const { currentPost, posts, isEditing } = useSelector(
+    (state: RootState) => state.blogForm
+  );
   const [showPreview, setShowPreview] = useState(false);
 
   useEffect(() => {
@@ -16,19 +24,19 @@ const AdminForm: React.FC = () => {
 
   const handleInputChange = (field: string, value: any) => {
     dispatch(updateField({ field: field as any, value }));
-    
+
     // Auto-generate slug from title
-    if (field === 'title' && !currentPost.slug) {
+    if (field === "title" && !currentPost.slug) {
       const slug = generateSlug(value);
-      dispatch(updateField({ field: 'slug', value: slug }));
+      dispatch(updateField({ field: "slug", value: slug }));
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!currentPost.title || !currentPost.content) {
-      alert('Please fill in title and content');
+      alert("Please fill in title and content");
       return;
     }
 
@@ -36,21 +44,21 @@ const AdminForm: React.FC = () => {
       ...currentPost,
       id: currentPost.id || generateId(),
       slug: currentPost.slug || generateSlug(currentPost.title),
-      date: currentPost.date || new Date().toISOString().split('T')[0],
+      date: currentPost.date || new Date().toISOString().split("T")[0],
       tags: currentPost.tags || [],
     } as any;
 
     dispatch(savePost(postToSave));
     dispatch(clearForm());
-    alert('Post saved successfully!');
+    alert("Post saved successfully!");
   };
 
   const handleEdit = (post: any) => {
-    dispatch(updateField({ field: 'currentPost', value: post }));
+    dispatch(updateField({ field: "currentPost", value: post }));
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Are you sure you want to delete this post?')) {
+    if (confirm("Are you sure you want to delete this post?")) {
       dispatch(deletePost(id));
     }
   };
@@ -68,7 +76,7 @@ const AdminForm: React.FC = () => {
         className="text-center mb-8"
       >
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          {isEditing ? 'Edit Post' : 'Create New Post'}
+          {isEditing ? "Edit Post" : "Create New Post"}
         </h1>
         <p className="text-gray-600">
           Use the form below to create or edit your blog posts
@@ -90,8 +98,8 @@ const AdminForm: React.FC = () => {
               </label>
               <input
                 type="text"
-                value={currentPost.title || ''}
-                onChange={(e) => handleInputChange('title', e.target.value)}
+                value={currentPost.title || ""}
+                onChange={(e) => handleInputChange("title", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter post title"
                 required
@@ -104,8 +112,8 @@ const AdminForm: React.FC = () => {
               </label>
               <input
                 type="text"
-                value={currentPost.slug || ''}
-                onChange={(e) => handleInputChange('slug', e.target.value)}
+                value={currentPost.slug || ""}
+                onChange={(e) => handleInputChange("slug", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="post-url-slug"
               />
@@ -118,8 +126,8 @@ const AdminForm: React.FC = () => {
                 </label>
                 <input
                   type="date"
-                  value={currentPost.date || ''}
-                  onChange={(e) => handleInputChange('date', e.target.value)}
+                  value={currentPost.date || ""}
+                  onChange={(e) => handleInputChange("date", e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -129,8 +137,8 @@ const AdminForm: React.FC = () => {
                 </label>
                 <input
                   type="text"
-                  value={currentPost.author || ''}
-                  onChange={(e) => handleInputChange('author', e.target.value)}
+                  value={currentPost.author || ""}
+                  onChange={(e) => handleInputChange("author", e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Author name"
                 />
@@ -142,8 +150,8 @@ const AdminForm: React.FC = () => {
                 Summary
               </label>
               <textarea
-                value={currentPost.summary || ''}
-                onChange={(e) => handleInputChange('summary', e.target.value)}
+                value={currentPost.summary || ""}
+                onChange={(e) => handleInputChange("summary", e.target.value)}
                 rows={3}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Brief summary of the post"
@@ -156,8 +164,17 @@ const AdminForm: React.FC = () => {
               </label>
               <input
                 type="text"
-                value={Array.isArray(currentPost.tags) ? currentPost.tags.join(', ') : ''}
-                onChange={(e) => handleInputChange('tags', e.target.value.split(',').map(tag => tag.trim()))}
+                value={
+                  Array.isArray(currentPost.tags)
+                    ? currentPost.tags.join(", ")
+                    : ""
+                }
+                onChange={(e) =>
+                  handleInputChange(
+                    "tags",
+                    e.target.value.split(",").map((tag) => tag.trim())
+                  )
+                }
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="react, gatsby, web-development"
               />
@@ -168,8 +185,8 @@ const AdminForm: React.FC = () => {
                 Content (Markdown) *
               </label>
               <textarea
-                value={currentPost.content || ''}
-                onChange={(e) => handleInputChange('content', e.target.value)}
+                value={currentPost.content || ""}
+                onChange={(e) => handleInputChange("content", e.target.value)}
                 rows={12}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
                 placeholder="# Your markdown content here..."
@@ -182,7 +199,7 @@ const AdminForm: React.FC = () => {
                 type="submit"
                 className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors"
               >
-                {isEditing ? 'Update Post' : 'Create Post'}
+                {isEditing ? "Update Post" : "Create Post"}
               </button>
               <button
                 type="button"
@@ -205,12 +222,14 @@ const AdminForm: React.FC = () => {
           {/* Preview Toggle */}
           <div className="bg-white rounded-lg shadow-lg p-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-900">Live Preview</h3>
+              <h3 className="text-lg font-semibold text-gray-900">
+                Live Preview
+              </h3>
               <button
                 onClick={() => setShowPreview(!showPreview)}
                 className="text-blue-600 hover:text-blue-700 text-sm font-medium"
               >
-                {showPreview ? 'Hide Preview' : 'Show Preview'}
+                {showPreview ? "Hide Preview" : "Show Preview"}
               </button>
             </div>
           </div>
@@ -219,40 +238,51 @@ const AdminForm: React.FC = () => {
           {showPreview && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               className="bg-white rounded-lg shadow-lg p-6"
             >
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                {currentPost.title || 'Preview Title'}
+                {currentPost.title || "Preview Title"}
               </h2>
               <div className="text-sm text-gray-500 mb-4">
-                {currentPost.date && new Date(currentPost.date).toLocaleDateString()} • {currentPost.author || 'Author'}
+                {currentPost.date &&
+                  new Date(currentPost.date).toLocaleDateString()}{" "}
+                • {currentPost.author || "Author"}
               </div>
               <div className="prose prose-sm max-w-none">
-                <div dangerouslySetInnerHTML={{ 
-                  __html: currentPost.content 
-                    ? currentPost.content
-                        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-                        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-                        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-                        .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-                        .replace(/\*(.*)\*/gim, '<em>$1</em>')
-                        .replace(/\n/gim, '<br>')
-                    : 'Start typing your content...'
-                }} />
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: currentPost.content
+                      ? currentPost.content
+                          .replace(/^### (.*$)/gim, "<h3>$1</h3>")
+                          .replace(/^## (.*$)/gim, "<h2>$1</h2>")
+                          .replace(/^# (.*$)/gim, "<h1>$1</h1>")
+                          .replace(/\*\*(.*)\*\*/gim, "<strong>$1</strong>")
+                          .replace(/\*(.*)\*/gim, "<em>$1</em>")
+                          .replace(/\n/gim, "<br>")
+                      : "Start typing your content...",
+                  }}
+                />
               </div>
             </motion.div>
           )}
 
           {/* Saved Posts */}
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Saved Posts</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Saved Posts
+            </h3>
             {posts.length === 0 ? (
-              <p className="text-gray-500 text-center py-4">No posts saved yet</p>
+              <p className="text-gray-500 text-center py-4">
+                No posts saved yet
+              </p>
             ) : (
               <div className="space-y-3">
                 {posts.map((post) => (
-                  <div key={post.id} className="border border-gray-200 rounded-lg p-3">
+                  <div
+                    key={post.id}
+                    className="border border-gray-200 rounded-lg p-3"
+                  >
                     <h4 className="font-medium text-gray-900">{post.title}</h4>
                     <p className="text-sm text-gray-500 mb-2">
                       {post.date} • {post.author}
@@ -282,4 +312,4 @@ const AdminForm: React.FC = () => {
   );
 };
 
-export default AdminForm; 
+export default AdminForm;

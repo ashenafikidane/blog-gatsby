@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import { motion } from "framer-motion";
-import { formatDate, getPostSlug } from "../utils/dateUtils";
+import { formatDate, getPostSlug } from "../utils/utils";
 
 interface PostCardProps {
   post: {
