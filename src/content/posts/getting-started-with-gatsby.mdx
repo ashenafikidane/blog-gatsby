@@ -1,0 +1,89 @@
+---
+title: "Getting Started with Gatsby: A Complete Guide"
+slug: "getting-started-with-gatsby"
+date: "2025-07-28"
+author: "Ashenafi Kidane"
+summary: "Learn how to build blazing-fast websites with Gatsby, React, and GraphQL. This comprehensive guide covers everything from setup to deployment."
+tags: ["gatsby", "react", "graphql", "web-development"]
+---
+
+# Getting Started with Gatsby: A Complete Guide
+
+Gatsby is a powerful static site generator that uses React and GraphQL to create blazing-fast websites. In this guide, we'll explore how to get started with Gatsby and build your first project.
+
+## What is Gatsby?
+
+Gatsby is a free and open source framework based on React that helps developers build blazing fast websites and apps. It combines the control and scalability of dynamically rendered sites with the speed of static-site generation.
+
+## Key Features
+
+- **Static Site Generation**: Pre-builds pages at build time
+- **GraphQL Data Layer**: Unified data access
+- **Rich Ecosystem**: Thousands of plugins
+- **Performance**: Optimized out of the box
+- **Developer Experience**: Hot reloading and great tooling
+
+## Installation
+
+To get started with Gatsby, you'll need Node.js installed on your system. Then run:
+
+```bash
+npm install -g gatsby-cli
+```
+
+## Creating Your First Gatsby Site
+
+```bash
+gatsby new my-gatsby-site
+cd my-gatsby-site
+gatsby develop
+```
+
+## Project Structure
+
+A typical Gatsby project has the following structure:
+
+```
+my-gatsby-site/
+├── gatsby-config.js
+├── gatsby-node.js
+├── src/
+│   ├── pages/
+│   ├── components/
+│   ├── templates/
+│   └── images/
+└── static/
+```
+
+## GraphQL and Data
+
+Gatsby uses GraphQL to query data from various sources. Here's an example:
+
+```graphql
+query {
+  allMarkdownRemark {
+    edges {
+      node {
+        frontmatter {
+          title
+          date
+        }
+        excerpt
+      }
+    }
+  }
+}
+```
+
+## Building for Production
+
+When you're ready to deploy:
+
+```bash
+gatsby build
+gatsby serve
+```
+
+## Conclusion
+
+Gatsby provides an excellent foundation for building modern, performant websites. With its rich ecosystem and powerful features, it's a great choice for developers looking to create fast, scalable web applications. 
