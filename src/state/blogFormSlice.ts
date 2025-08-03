@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface BlogPost {
   id: string;
@@ -9,6 +9,7 @@ export interface BlogPost {
   summary: string;
   content: string;
   tags: string[];
+  isDraft: boolean;
 }
 
 interface BlogFormState {
@@ -19,23 +20,27 @@ interface BlogFormState {
 
 const initialState: BlogFormState = {
   currentPost: {
-    title: '',
-    slug: '',
-    date: new Date().toISOString().split('T')[0],
-    author: '',
-    summary: '',
-    content: '',
+    title: "",
+    slug: "",
+    date: new Date().toISOString().split("T")[0],
+    author: "",
+    summary: "",
+    content: "",
     tags: [],
+    isDraft: true, // Default to draft
   },
   posts: [],
   isEditing: false,
 };
 
 const blogFormSlice = createSlice({
-  name: 'blogForm',
+  name: "blogForm",
   initialState,
   reducers: {
-    updateField: (state, action: PayloadAction<{ field: keyof BlogPost; value: any }>) => {
+    updateField: (
+      state,
+      action: PayloadAction<{ field: keyof BlogPost; value: any }>
+    ) => {
       const { field, value } = action.payload;
       state.currentPost[field] = value;
     },
@@ -45,46 +50,57 @@ const blogFormSlice = createSlice({
     },
     clearForm: (state) => {
       state.currentPost = {
-        title: '',
-        slug: '',
-        date: new Date().toISOString().split('T')[0],
-        author: '',
-        summary: '',
-        content: '',
+        title: "",
+        slug: "",
+        date: new Date().toISOString().split("T")[0],
+        author: "",
+        summary: "",
+        content: "",
         tags: [],
+        isDraft: true, // Default to draft
       };
       state.isEditing = false;
     },
     savePost: (state, action: PayloadAction<BlogPost>) => {
-      const existingIndex = state.posts.findIndex(post => post.id === action.payload.id);
+      const existingIndex = state.posts.findIndex(
+        (post) => post.id === action.payload.id
+      );
       if (existingIndex >= 0) {
         state.posts[existingIndex] = action.payload;
       } else {
         state.posts.push(action.payload);
       }
       // Save to localStorage
-      localStorage.setItem('blogPosts', JSON.stringify(state.posts));
+      localStorage.setItem("blogPosts", JSON.stringify(state.posts));
     },
     loadPosts: (state) => {
-      const savedPosts = localStorage.getItem('blogPosts');
+      const savedPosts = localStorage.getItem("blogPosts");
       if (savedPosts) {
         state.posts = JSON.parse(savedPosts);
       }
     },
     deletePost: (state, action: PayloadAction<string>) => {
-      state.posts = state.posts.filter(post => post.id !== action.payload);
-      localStorage.setItem('blogPosts', JSON.stringify(state.posts));
+      state.posts = state.posts.filter((post) => post.id !== action.payload);
+      localStorage.setItem("blogPosts", JSON.stringify(state.posts));
+    },
+    toggleDraft: (state, action: PayloadAction<string>) => {
+      const post = state.posts.find((p) => p.id === action.payload);
+      if (post) {
+        post.isDraft = !post.isDraft;
+        localStorage.setItem("blogPosts", JSON.stringify(state.posts));
+      }
     },
   },
 });
 
-export const { 
-  updateField, 
-  setCurrentPost, 
-  clearForm, 
-  savePost, 
-  loadPosts, 
-  deletePost 
+export const {
+  updateField,
+  setCurrentPost,
+  clearForm,
+  savePost,
+  loadPosts,
+  deletePost,
+  toggleDraft,
 } = blogFormSlice.actions;
 
-export default blogFormSlice.reducer; 
+export default blogFormSlice.reducer;

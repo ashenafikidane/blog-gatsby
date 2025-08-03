@@ -8,6 +8,8 @@ import {
   clearForm,
   loadPosts,
   deletePost,
+  toggleDraft,
+  setCurrentPost,
 } from "../state/blogFormSlice";
 import { generateId, generateSlug } from "../utils/utils";
 
@@ -46,6 +48,7 @@ const AdminForm: React.FC = () => {
       slug: currentPost.slug || generateSlug(currentPost.title),
       date: currentPost.date || new Date().toISOString().split("T")[0],
       tags: currentPost.tags || [],
+      isDraft: currentPost.isDraft !== false, // Default to true if not explicitly set
     } as any;
 
     dispatch(savePost(postToSave));
@@ -54,13 +57,17 @@ const AdminForm: React.FC = () => {
   };
 
   const handleEdit = (post: any) => {
-    dispatch(updateField({ field: "currentPost", value: post }));
+    dispatch(setCurrentPost(post));
   };
 
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this post?")) {
       dispatch(deletePost(id));
     }
+  };
+
+  const handleToggleDraft = (id: string) => {
+    dispatch(toggleDraft(id));
   };
 
   const handleClear = () => {
@@ -194,6 +201,23 @@ const AdminForm: React.FC = () => {
               />
             </div>
 
+            {/* Draft Toggle */}
+            <div className="flex items-center space-x-3">
+              <input
+                type="checkbox"
+                id="isDraft"
+                checked={currentPost.isDraft !== false}
+                onChange={(e) => handleInputChange("isDraft", e.target.checked)}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
+              <label
+                htmlFor="isDraft"
+                className="text-sm font-medium text-gray-700"
+              >
+                Save as draft
+              </label>
+            </div>
+
             <div className="flex space-x-4">
               <button
                 type="submit"
@@ -241,9 +265,16 @@ const AdminForm: React.FC = () => {
               animate={{ opacity: 1, height: "auto" }}
               className="bg-white rounded-lg shadow-lg p-6"
             >
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                {currentPost.title || "Preview Title"}
-              </h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {currentPost.title || "Preview Title"}
+                </h2>
+                {currentPost.isDraft !== false && (
+                  <span className="inline-block bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">
+                    Draft
+                  </span>
+                )}
+              </div>
               <div className="text-sm text-gray-500 mb-4">
                 {currentPost.date &&
                   new Date(currentPost.date).toLocaleDateString()}{" "}
@@ -283,8 +314,21 @@ const AdminForm: React.FC = () => {
                     key={post.id}
                     className="border border-gray-200 rounded-lg p-3"
                   >
-                    <h4 className="font-medium text-gray-900">{post.title}</h4>
-                    <p className="text-sm text-gray-500 mb-2">
+                    <div className="flex items-start justify-between mb-2">
+                      <h4 className="font-medium text-gray-900">
+                        {post.title}
+                      </h4>
+                      <span
+                        className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
+                          post.isDraft
+                            ? "bg-yellow-100 text-yellow-800"
+                            : "bg-green-100 text-green-800"
+                        }`}
+                      >
+                        {post.isDraft ? "Draft" : "Published"}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-500 mb-3">
                       {post.date} • {post.author}
                     </p>
                     <div className="flex space-x-2">
@@ -293,6 +337,16 @@ const AdminForm: React.FC = () => {
                         className="text-blue-600 hover:text-blue-700 text-sm"
                       >
                         Edit
+                      </button>
+                      <button
+                        onClick={() => handleToggleDraft(post.id)}
+                        className={`text-sm ${
+                          post.isDraft
+                            ? "text-green-600 hover:text-green-700"
+                            : "text-yellow-600 hover:text-yellow-700"
+                        }`}
+                      >
+                        {post.isDraft ? "Publish" : "Unpublish"}
                       </button>
                       <button
                         onClick={() => handleDelete(post.id)}
