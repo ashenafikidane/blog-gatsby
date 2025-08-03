@@ -311,6 +311,10 @@ The test suite covers:
 
 Watch a short demo walkthrough on Loom: [Click here to watch](https://www.loom.com/share/021e689184dd4a33ada8afbcbd8b9992?sid=9b184399-0b25-44ba-8775-5e1ce3c5545f)
 
+### 🔗 Live Demo
+
+[View the live site on Netlify](https://688f2d63fd3c3cf22a9c4993--ornate-queijadas-0a418f.netlify.app)
+
 ## 📄 License
 
 This project is licensed under the MIT License.
