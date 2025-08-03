@@ -19,7 +19,8 @@ const SEO: React.FC<SEOProps> = ({
   const siteTitle = "Gatsby Blog CMS";
   const siteDescription =
     "A professional blog CMS built with Gatsby, React, and Redux Toolkit";
-  const siteUrl = "https://www.yourdomain.tld";
+  const siteUrl =
+    "https://688f2d63fd3c3cf22a9c4993--ornate-queijadas-0a418f.netlify.app";
   const siteImage = "/icon.png";
 
   const seo = {
