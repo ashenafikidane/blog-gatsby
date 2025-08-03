@@ -1,39 +1,4 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby Minimal TypeScript Starter
-</h1>
-
-## 🚀 Quick start
-
-1.  **Create a Gatsby site.**
-
-    Use the Gatsby CLI to create a new site, specifying the minimal TypeScript starter.
-
-    ```shell
-    # create a new Gatsby site using the minimal TypeScript starter
-    npm init gatsby -- -ts
-    ```
-
-2.  **Start developing.**
-
-    Navigate into your new site’s directory and start it up.
-
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
-
-3.  **Open the code and start customizing!**
-
-    Your site is now running at http://localhost:8000!
-
-    Edit `src/pages/index.tsx` to see your site update in real-time!
-
-# Gatsby Blog CMS
+# Gatsby Blog
 
 A professional, responsive blog CMS built with Gatsby, React, Redux Toolkit, and MDX. Features a beautiful UI with animations, admin interface for content management, and full SEO optimization.
 
@@ -57,7 +22,7 @@ A professional, responsive blog CMS built with Gatsby, React, Redux Toolkit, and
 - **Framer Motion** - Smooth animations and transitions
 - **TypeScript** - Type safety throughout the application
 - **Prism.js** - Syntax highlighting for code blocks (JavaScript, TypeScript, JSX, TSX, Bash, JSON, CSS, Markdown)
-- **React Helmet Async** - Dynamic meta tag management
+- **React Helmet** - Dynamic meta tag management
 
 ### UI/UX Features
 
@@ -257,8 +222,6 @@ Create JSON files in `src/data/authors/` with author information:
 - **New Components** - Add to `src/components/`
 - **New Content Types** - Extend GraphQL queries and create templates
 
-## 🔧 Development
-
 ### Architecture Decisions
 
 1. **Redux Toolkit** - Chosen for predictable state management and developer experience
@@ -326,7 +289,6 @@ The test suite covers:
 
 ## 📊 Performance
 
-- **Lighthouse Score**: 95+ across all metrics
 - **Bundle Size**: Optimized with Gatsby's built-in optimizations
 - **Image Optimization**: Automatic with gatsby-plugin-image
 - **Code Splitting**: Automatic with Gatsby's routing
@@ -348,14 +310,6 @@ The test suite covers:
 ## 🎥 Demo Video
 
 Watch a short demo walkthrough on Loom: [Click here to watch](https://www.loom.com/share/021e689184dd4a33ada8afbcbd8b9992?sid=9b184399-0b25-44ba-8775-5e1ce3c5545f)
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
 
 ## 📄 License
 

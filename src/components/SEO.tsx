@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet";
 
 interface SEOProps {
   title?: string;
@@ -16,9 +16,9 @@ const SEO: React.FC<SEOProps> = ({
   article = false,
   pathname,
 }) => {
-  const siteTitle = "Gatsby Blog";
+  const siteTitle = "Gatsby Blog CMS";
   const siteDescription =
-    "A professional blog built with Gatsby, React, and Redux Toolkit";
+    "A professional blog CMS built with Gatsby, React, and Redux Toolkit";
   const siteUrl = "https://www.yourdomain.tld";
   const siteImage = "/icon.png";
 
@@ -43,12 +43,12 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:description" content={seo.description} />
       <meta property="og:image" content={seo.image} />
 
-      {/* x */}
-      <meta name="x:card" content="summary_large_image" />
-      <meta name="x:url" content={seo.url} />
-      <meta name="x:title" content={seo.title} />
-      <meta name="x:description" content={seo.description} />
-      <meta name="x:image" content={seo.image} />
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content={seo.url} />
+      <meta name="twitter:title" content={seo.title} />
+      <meta name="twitter:description" content={seo.description} />
+      <meta name="twitter:image" content={seo.image} />
 
       {/* Canonical URL */}
       <link rel="canonical" href={seo.url} />
