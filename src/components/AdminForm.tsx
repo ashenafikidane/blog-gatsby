@@ -11,7 +11,11 @@ import {
   toggleDraft,
   setCurrentPost,
 } from "../state/blogFormSlice";
-import { generateId, generateSlug } from "../utils/utils";
+import {
+  generateId,
+  generateSlug,
+  parseMarkdownForPreview,
+} from "../utils/utils";
 
 const AdminForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -283,15 +287,7 @@ const AdminForm: React.FC = () => {
               <div className="prose prose-sm max-w-none">
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: currentPost.content
-                      ? currentPost.content
-                          .replace(/^### (.*$)/gim, "<h3>$1</h3>")
-                          .replace(/^## (.*$)/gim, "<h2>$1</h2>")
-                          .replace(/^# (.*$)/gim, "<h1>$1</h1>")
-                          .replace(/\*\*(.*)\*\*/gim, "<strong>$1</strong>")
-                          .replace(/\*(.*)\*/gim, "<em>$1</em>")
-                          .replace(/\n/gim, "<br>")
-                      : "Start typing your content...",
+                    __html: parseMarkdownForPreview(currentPost.content || ""),
                   }}
                 />
               </div>

@@ -1,8 +1,8 @@
 {
-  "name": "blog-gatsby",
+  "name": "gatsby-blog-cms",
   "version": "1.0.0",
   "private": true,
-  "description": "blog-gatsby",
+  "description": "gatsby-blog-cms",
   "author": "ashenafi.kidane",
   "keywords": [
     "gatsby"
@@ -13,10 +13,13 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@mdx-js/react": "^2.0.0",
+    "@mdx-js/react": "^2.3.0",
     "@reduxjs/toolkit": "^2.8.2",
     "@types/prismjs": "^1.26.5",
     "autoprefixer": "^10.4.21",
@@ -30,7 +33,7 @@
     "gatsby-source-filesystem": "^5.14.0",
     "gatsby-transformer-sharp": "^5.14.0",
     "postcss": "^8.5.6",
-    "prismjs": "^1.30.0",
+    "prism-react-renderer": "^2.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
@@ -38,9 +41,41 @@
     "tailwindcss": "^3.4.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.11.19",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.1.2",
     "typescript": "^5.3.3"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.json"
+        }
+      ]
+    },
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.(ts|tsx)",
+      "<rootDir>/src/**/*.(test|spec).(ts|tsx)"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
   }
 }
